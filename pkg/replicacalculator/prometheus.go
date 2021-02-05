@@ -12,8 +12,8 @@ import (
 )
 
 const (
-	prometheusQuery = `sum(rate(container_cpu_usage_seconds_total{pod_name=~"%s", namespace="%s"}[1m])) by(pod_name) / 
-		sum(kube_pod_container_resource_requests_cpu_cores{pod_name=~"%s", namespace="%s"}) by (pod_name)`
+	prometheusQuery = `sum(rate(container_cpu_usage_seconds_total{job="kubernetes-cadvisor",image!="",container!="POD",pod=~"%s",namespace="%s"}[1m])) by(pod) / 
+		sum(kube_pod_container_resource_requests_cpu_cores{job="kube-state-metrics",pod=~"%s",namespace="%s"}) by (pod)`
 )
 
 type MetricsSource interface {
@@ -55,8 +55,9 @@ func (m *prometheusMetricsSource) GetPodMetrics(namespace string, podIDs []strin
 		return nil, fmt.Errorf("unexpected return type from the prometheus api call: %v", results.Type())
 	}
 	mapResults := make(map[string][]int)
+	log.Debugf("matrixResult ----: %v", matrixResult)
 	for _, r := range matrixResult {
-		podName := string(r.Metric["pod_name"])
+		podName := string(r.Metric["pod"])
 		mapResults[podName] = make([]int, len(r.Values))
 		for i, v := range r.Values {
 			mapResults[podName][i] = int(v.Value * 100)
