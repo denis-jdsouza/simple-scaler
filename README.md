@@ -40,3 +40,11 @@ evaluations.
 
 This setup expects Prometheus to be running in the cluster and configured to scrape pod resource metrics. The address
 for Prometheus can be passed through `-prometheus-url` flag.
+
+## Compatibility
+
+#### Tested on the following environment:
+
+- Kubernetes v1.17 with Docker v19.03
+- Prometheus v2.20
+- Kube-state-metrics v1.8

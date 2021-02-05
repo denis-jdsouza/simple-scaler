@@ -18,7 +18,7 @@ spec:
       serviceAccountName: system
       containers:
         - name: scaler
-          image: arjunrn/simple-scaler:ca121dd
+          image: denisjd/simple-scaler:v2.0
           args:
             - -prometheus-url=http://prometheus
           resources:
