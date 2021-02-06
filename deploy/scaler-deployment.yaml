@@ -15,7 +15,7 @@ spec:
       labels:
         application: scaler
     spec:
-      serviceAccountName: system
+      serviceAccountName: scaler-sa
       containers:
         - name: scaler
           image: denisjd/simple-scaler:v2.0
@@ -28,4 +28,3 @@ spec:
             limits:
               cpu: 200m
               memory: 300Mi
-
