@@ -226,7 +226,15 @@ func (c *Controller) reconcileScaler(scalerShared *v1alpha1.Scaler) error {
 		lastUpdated = time.Now().Add(-time.Minute * 5)
 	}
 
-	if lastUpdated.Add(time.Minute * 1).After(time.Now()) {
+	//if lastUpdated.Add(time.Minute * 1).After(time.Now()) {
+	//	log.Infof("still in cooldown period since last scaling period")
+	//	return nil
+	//}
+
+	// Added support for coolDown
+	coolDown := time.Duration(scaler.Spec.CoolDownPeriod) * time.Second
+	log.Debugf("coolDownperiod is: %v", coolDown)
+	if lastUpdated.Add(coolDown).After(time.Now()) {
 		log.Infof("still in cooldown period since last scaling period")
 		return nil
 	}

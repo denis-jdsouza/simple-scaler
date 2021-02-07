@@ -18,15 +18,16 @@ type Scaler struct {
 // ScalerSpec is the specification for Scalers
 // +k8s:deepcopy-gen=true
 type ScalerSpec struct {
-	Label         string      `json:"label"`
-	MinReplicas   int32       `json:"minReplicas"`
-	MaxReplicas   int32       `json:"maxReplicas"`
-	Target        ScaleTarget `json:"target"`
-	ScaleDown     int32       `json:"scaleDown"`
-	ScaleUp       int32       `json:"scaleUp"`
-	Evaluations   int32       `json:"evaluations"`
-	ScaleUpSize   int32       `json:"scaleUpSize"`
-	ScaleDownSize int32       `json:"scaleDownSize"`
+	Label          string      `json:"label"`
+	MinReplicas    int32       `json:"minReplicas"`
+	MaxReplicas    int32       `json:"maxReplicas"`
+	Target         ScaleTarget `json:"target"`
+	ScaleDown      int32       `json:"scaleDown"`
+	ScaleUp        int32       `json:"scaleUp"`
+	Evaluations    int32       `json:"evaluations"`
+	ScaleUpSize    int32       `json:"scaleUpSize"`
+	ScaleDownSize  int32       `json:"scaleDownSize"`
+	CoolDownPeriod int32       `json:"coolDownPeriod"`
 }
 
 // ScalerStatus is the status of the Scaler

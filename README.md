@@ -17,13 +17,14 @@ metadata:
   name: example-scaler
   namespace: default
 spec:
-  evaluations: 2    // Number of evaluations in before scaling happens
-  minReplicas: 1    // Minimum number of replicas
-  maxReplicas: 10   // Maximum number of replicas
-  scaleUp: 50       // Scale Up threshold in utilization percentage
-  scaleDown: 20     // Scale Down threshold in utilization percentage
-  scaleUpSize: 2    // Number of pods to scale up
-  scaleDownSize: 1  // Number of pods to scale down
+  evaluations: 2       // Number of evaluations in before scaling happens
+  minReplicas: 1       // Minimum number of replicas
+  maxReplicas: 10      // Maximum number of replicas
+  scaleUp: 50          // Scale Up threshold in utilization percentage
+  scaleDown: 20        // Scale Down threshold in utilization percentage
+  scaleUpSize: 2       // Number of pods to scale up
+  scaleDownSize: 1     // Number of pods to scale down
+  coolDownPeriod: 180  // Cooldown period after scaleup/scaledown (in seconds)
   target:
     kind: Deployment
     name: nginx
