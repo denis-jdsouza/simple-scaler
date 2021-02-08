@@ -64,6 +64,7 @@ scaleDownThreshold, evaluations int32) (bool, bool) {
 	scaleUp := false
 	scaleDown := false
 	for _, p := range podNames {
+		ignorepod := false
 		var (
 			pMetrics []int
 			ok       bool
@@ -71,11 +72,27 @@ scaleDownThreshold, evaluations int32) (bool, bool) {
 
 		// If metrics are not present then continue
 		if pMetrics, ok = podMetrics[p]; !ok {
+			log.Debugf("metrics are not present !!")
 			continue
 		}
 
 		// If metrics are not sufficient then continue
 		if len(pMetrics) < int(evaluations) {
+			log.Debugf("metrics are not sufficient !!")
+			continue
+		}
+
+		// Fix for unwanted scaledown operation if any pod has CPU usage == 0
+		// Pods can have 0 CPU usage for sometime before being added to service (for serving traffic) and after removing from service endpoint
+		// Skip pods for which metrics value is 0
+		for _, p := range pMetrics {
+			if p == 0 {
+				ignorepod = true
+				break
+			}
+		}
+		if ignorepod {
+			log.Debugf("metrics contains 0 value hence skipping pod ...")
 			continue
 		}
 
