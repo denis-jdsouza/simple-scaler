@@ -49,3 +49,6 @@ for Prometheus can be passed through `-prometheus-url` flag.
 - Kubernetes v1.17 with Docker v19.03
 - Prometheus v2.20
 - Kube-state-metrics v1.8
+
+## Monitoring (Prometheus-exporter)
+[GitHub](https://github.com/denis-jdsouza/simplescaler-exporter) - _Repo_
